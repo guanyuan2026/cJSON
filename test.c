@@ -8,7 +8,7 @@
 
 int main(void)
 {
-	char *Output2 = "{\"state\":\"1\"}";
+	char *Output2 = "{\"state\":1}";
 
 	//从缓冲区中解析出JSON结构
 	cJSON * cj= NULL;
@@ -19,11 +19,11 @@ int main(void)
 	
 	cj = cJSON_Parse(Output2);
 	if(!cj)
-    {printf("2");
+    {
         printf("Error before: [%s]\n",cJSON_GetErrorPtr());
         return -1 ;
     }
-	
+
     item = cJSON_GetObjectItem(cj,"state");
     if(item == NULL)
     {
@@ -31,10 +31,9 @@ int main(void)
         cJSON_Delete(cj);
         return -1;
     }
-	printf("%s \n",item->valueint);
-	printf("%s \n",item->valuestring);
+	printf("%d \n",item->valueint);
 
-	const char *Output1 = "{\"state\":\"2\",\"list\":[{\"cmd\":\"device\"},{\"cmd\":\"resetfingerprint\"}]}";
+	const char *Output1 = "{\"state\":1,\"list\":[{\"cmd\":\"device\"},{\"cmd\":\"resetfingerprint\"}]}";
 	
 	cj = cJSON_Parse(Output1);
 	if(!cj)
@@ -50,8 +49,7 @@ int main(void)
         cJSON_Delete(cj);
         return -1;
     }
-	printf("%s \n",item->valueint);
-	printf("%s \n",item->valuestring);
+	printf("%d \n",item->valueint);
 	
 	arrayItem = cJSON_GetObjectItem(cj,"list");
     if(!arrayItem)
