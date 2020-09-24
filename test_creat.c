@@ -158,7 +158,7 @@ int main(void)
         }
         cJSON_AddItemToObject(arrayobject, "time", value);
 		
-        value = cJSON_CreateNumber(120.8);
+        value = cJSON_CreateNumber(120.877);
         if (value == NULL)
         {
             goto end;
