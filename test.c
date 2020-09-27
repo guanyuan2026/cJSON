@@ -8,7 +8,8 @@
 
 int main(void)
 {
-	char *Output2 = "{\"state\":1}";
+	printf("Output2 = {\"state\":1,\"state2\":2}\r\n");
+	char *Output2 = "{\"state\":1,\"state2\":2}";
 
 	//从缓冲区中解析出JSON结构
 	cJSON * cj= NULL;
@@ -23,6 +24,16 @@ int main(void)
         printf("Error before: [%s]\n",cJSON_GetErrorPtr());
         return -1 ;
     }
+	
+	item = cJSON_GetObjectItem(cj,"state2");
+    if(item == NULL)
+    {
+		printf("Error before: [%s]\n",cJSON_GetErrorPtr());  
+        cJSON_Delete(cj);
+        return -1;
+    }
+	printf("state2 = %d \n",item->valueint);
+	
 
     item = cJSON_GetObjectItem(cj,"state");
     if(item == NULL)
@@ -31,8 +42,14 @@ int main(void)
         cJSON_Delete(cj);
         return -1;
     }
-	printf("%d \n",item->valueint);
+	printf("state = %d \n",item->valueint);
 
+
+	
+	
+	
+	//解析带数组的JSON格式
+	printf("Output1 = {\"state\":1,\"list\":[{\"cmd\":\"device\"},{\"cmd\":\"resetfingerprint\"}]}\r\n");
 	const char *Output1 = "{\"state\":1,\"list\":[{\"cmd\":\"device\"},{\"cmd\":\"resetfingerprint\"}]}";
 	
 	cj = cJSON_Parse(Output1);
